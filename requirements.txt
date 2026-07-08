@@ -1,0 +1,5 @@
+app-store-scraper
+pandas
+numpy
+openpyxl
+streamlit

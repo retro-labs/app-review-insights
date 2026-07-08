@@ -1,74 +1,91 @@
-# LaienTech iOS App Review Analysis and Version Planning Assessment
+\# App Store 用户评论分析工具
 
-## Background
+\## 项目简介
 
-This assessment is based on a real iOS app listed on the Apple App Store:
+基于苹果官方RSS接口，自动化抓取美国区App Store用户评论，完成数据清洗、智能分类、痛点统计，并自动输出产品迭代规划（PRD）与标准化测试用例。所有需求均可追溯至原始用户评价，为产品迭代提供数据支撑。
 
-https://apps.apple.com/us/app/workout-for-women-home-gym/id839285684
+\## 核心功能
 
-If you have access to an overseas network environment, use the U.S. App Store link above. If not, and the U.S. link cannot be opened or redirects, use the China App Store link only to open the app detail page:
+1\.  \*\*评论抓取\*\*：调用苹果官方公开RSS接口，分页获取最多500条美国区用户评论
 
-https://apps.apple.com/cn/app/workout-for-women-home-gym/id839285684
+2\.  \*\*数据清洗\*\*：自动去重、过滤无效短评论、统一结构化字段
 
-Regardless of which link is used to open the page, the review data used in this assessment must come from the U.S. App Store storefront.
+3\.  \*\*智能分类\*\*：基于关键词规则，将评论分为8大类（崩溃bug、付费吐槽、广告、内容不足等）
 
-You are expected to complete a full product analysis workflow around this app's user reviews, covering data collection, review cleaning, review classification, issue analysis, version planning, PRD writing, and test case design. The final results should be presented through a runnable UI.
+4\.  \*\*痛点统计\*\*：分别统计全量与低分差评的问题分布，定位核心负面反馈
 
-This assessment focuses on the candidate's vibe coding ability. Candidates should use vibe coding to complete the full process: collecting data, cleaning and analyzing reviews, abstracting product requirements, planning versions, designing test cases, and productizing the analysis workflow into an interactive experience.
+5\.  \*\*PRD自动生成\*\*：基于痛点输出三版本迭代规划，每条需求附带原始评论溯源
 
-## Objective
+6\.  \*\*测试用例生成\*\*：对应产品需求，输出标准化功能测试用例清单
 
-Build a runnable tool or web application. In the UI, the user should be able to enter the following App Store link:
-
-```text
-https://apps.apple.com/us/app/workout-for-women-home-gym/id839285684
+\## 目录结构
 ```
 
-After the user clicks "Start", the system should automatically complete the following workflow and display the results in the UI:
+app-analysis/
 
-1. Collect review data for the app.
-2. Clean and structure the review data.
-3. Classify and analyze the reviews.
-4. Create an update plan for the next version based on the analysis, and produce a PRD.
-5. If the required scope is too large, split it into a multi-version release plan.
-6. Generate test cases based on the PRD.
-7. Mark the corresponding or source user review for every test case.
-8. Display the progress of the full workflow in the UI, including stages such as collection, cleaning, classification, analysis, PRD generation, and test case generation.
-9. Display the interim deliverables for the current stage, such as raw review data, cleaned data, classification results, analysis findings, PRD draft, and test case draft.
-10. Display the final analysis results, PRD, and test cases in the UI.
+├── backend/ # 后端脚本目录
 
-## Deliverables
+│ ├── get\_reviews.py # 评论抓取脚本
 
-Submit a GitHub project link and ensure the project can run locally.
+│ ├── clean\_reviews.py # 数据清洗脚本
 
-The GitHub project should include complete source code, dependency configuration, running instructions, an explanation of the data collection method, and any necessary sample output or cached data so that interviewers can review the results even when external network access is unavailable.
+│ ├── classify\_reviews.py # 评论分类与统计脚本
 
-The GitHub project should preserve a complete commit history to show the candidate's implementation process, iteration process, and use of vibe coding.
+│ ├── generate\_prd.py # PRD 与版本规划生成脚本
 
-## Technical Requirements and Notes
+│ └── generate\_testcases.py # 测试用例生成脚本
 
-- There is no restriction on the tech stack.
-- You may use frontend frameworks, backend frameworks, data analysis libraries, visualization libraries, natural language processing models, or large language model APIs.
-- You may use public APIs or third-party data collection libraries, but you must clearly explain the data source and its limitations.
-- Pay attention to request rate limits and avoid placing abnormal load on the target site.
-- A non-runnable document-only submission is not acceptable.
+├── sample\_data/ # 数据文件目录
 
-## Evaluation Criteria
+│ ├── reviews\_raw.json # 原始评论数据
 
-This assessment focuses on whether the candidate can turn real user reviews into an executable product plan. The evaluation will mainly consider:
+│ ├── reviews\_cleaned.json # 清洗后评论数据
 
-- Whether the data is authentic and reproducible, with a clear explanation of its source and limitations.
-- Whether review cleaning, classification, and analysis are reasonable, and whether they surface concrete user problems.
-- Whether the PRD is grounded in user problems, with clear requirement boundaries, priorities, and version planning.
-- Whether the test cases cover the PRD and can be traced back to the corresponding user reviews.
-- Whether the UI clearly presents the workflow and results, and whether the project can run locally with clear delivery instructions.
+│ ├── reviews\_classified.json # 带分类标签的评论数据
 
-## Important Notes
+│ └── analysis\_stats.json # 痛点统计结果
 
-- This is not merely a web scraping task, nor is it merely a UI presentation task.
-- The core challenge is to identify problems from real user reviews and turn them into executable product requirements and test plans.
-- Review data should not be collected by scraping only the visible content of the page. There are more appropriate ways to retrieve App Store review data; candidates are expected to explore them independently and explain their implementation.
-- Requirements in the PRD must be traceable to specific user reviews.
-- Test cases must be able to verify whether the corresponding requirements solve the problems raised in those reviews.
-- If AI is used to generate analysis results, the original review evidence must be retained, and the submission should explain how hallucinations or inaccurate conclusions were avoided.
-- If the amount of available data is limited or data collection is constrained, state this transparently in the results. Do not fabricate data.
+├── docs/ # 产出文档目录
+
+│ ├── PRD\_版本规划.md # 产品需求文档与迭代规划
+
+│ └── 测试用例清单.md # 标准化功能测试用例
+
+└── README.md # 项目说明文档
+
+\## 使用方法
+
+1\. 确保已安装Python 3.x环境
+
+2\. 依次执行以下脚本：
+```
+
+py backend/get\_reviews.py # 抓取评论
+
+py backend/clean\_reviews.py # 清洗数据
+
+py backend/classify\_reviews.py # 分类统计
+
+py backend/generate\_prd.py # 生成 PRD
+
+py backend/generate\_testcases.py # 生成测试用例
+```
+
+3\. 执行完成后，查看 `sample\_data` 与 `docs` 目录下的产出文件
+
+\## 数据说明
+
+\- 数据源：苹果iTunes官方公开RSS评论接口
+
+\- 数据范围：美国区、按最新排序、最多10页共500条评论
+
+\- 局限性：RSS接口仅提供最多500条评论，无法获取全量历史评价
+
+\## 版本迭代记录
+
+\- V1.0：完成评论抓取、清洗、分类三大基础模块
+
+\- V1.1：新增PRD自动生成与评论溯源功能
+
+\- V1.2：新增标准化测试用例自动生成功能
+
