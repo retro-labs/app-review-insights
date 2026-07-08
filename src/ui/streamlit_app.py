@@ -466,7 +466,7 @@ def render_control_card():
     
     with col_input:
         app_url = st.text_input(
-            "",
+            "App Store链接",
             value=APP_STORE_URL,
             help="输入美区App Store应用链接",
             key="app_url",
@@ -477,9 +477,9 @@ def render_control_card():
     with col_buttons:
         col_btn1, col_btn2 = st.columns(2)
         with col_btn1:
-            start_button = st.button("🚀 开始分析", key="start", use_container_width=True)
+            start_button = st.button("🚀 开始分析", key="start", width="stretch")
         with col_btn2:
-            reset_button = st.button("🔄 重置", key="reset", use_container_width=True)
+            reset_button = st.button("🔄 重置", key="reset", width="stretch")
     
     if reset_button:
         st.session_state.stage = 0
