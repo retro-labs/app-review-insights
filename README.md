@@ -89,7 +89,7 @@ app-review-insights/
 1. **克隆项目**
 
 ```bash
-git clone <项目仓库地址>
+git clone https://github.com/retro-labs/app-review-insights.git
 cd app-review-insights
 ```
 
@@ -129,7 +129,7 @@ python run.py
 
 ### 使用说明
 
-1. 在左侧输入框中输入美区 App Store 应用链接
+1. 在输入框中输入美区 App Store 应用链接
 2. 点击「🚀 开始分析」按钮
 3. 等待工作流完成（约30秒）
 4. 查看各阶段的分析结果
@@ -210,7 +210,7 @@ python run.py
 
 项目包含示例数据，即使在无法访问外部网络的情况下，也能查看完整的分析结果。
 
-示例数据包含 15 条模拟评论，覆盖以下主题：
+示例数据包含 41 条模拟评论，覆盖以下主题：
 - Bug 报告（崩溃、性能问题）
 - 功能需求（深色模式、瑜伽课程、Apple Watch 支持）
 - 用户体验反馈
