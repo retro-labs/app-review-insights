@@ -1,0 +1,17 @@
+streamlit>=1.32.0
+pandas>=2.2.0
+numpy>=1.26.4
+requests>=2.31.0
+beautifulsoup4>=4.12.3
+lxml>=4.9.3
+textblob>=0.17.1
+nltk>=3.8.1
+sqlalchemy>=2.0.27
+pymysql>=1.1.0
+scikit-learn>=1.4.2
+matplotlib>=3.8.3
+seaborn>=0.13.2
+python-dotenv>=1.0.1
+openai>=1.13.3
+plotly>=5.18.0
+app-store-scraper>=0.3.5 --no-deps
